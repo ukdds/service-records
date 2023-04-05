@@ -1,0 +1,12 @@
+{% extends "../ajax-form.njk" %}
+
+{% block form %}
+    {{ govukFileUpload({
+        id: "deathCertificate",
+        name: "deathCertificate",
+        classes: "upload",
+        label: {
+            html: "Upload the serviceperson's death certificate <span>(optional)</span>"
+        }
+    }) }}
+{% endblock %}

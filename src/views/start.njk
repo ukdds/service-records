@@ -1,0 +1,11 @@
+{% extends 'form.njk' %}
+
+{% block form %}
+    {{ govukRadios({
+        name: 'service',
+        value: old.service, errorMessage: errors.service,
+        fieldset: { legend: { text: 'Which service did the serviceperson last serve in?', isPageHeading: true,
+            classes: 'govuk-fieldset__legend--l' } },
+        items: services
+    }) }}
+{% endblock %}

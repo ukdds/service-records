@@ -1,0 +1,32 @@
+{{ govukDateInput({
+    id: 'enlistedDate', namePrefix: 'enlistedDate', fieldset: { legend: { text: 'Date they joined', } },
+    items: [
+        { classes: 'govuk-input--width-2 govuk-input--error', name: 'day', value: old['enlistedDate-day'] },
+        { classes: 'govuk-input--width-2 govuk-input--error', name: 'month', value: old['enlistedDate-month'] },
+        { classes: 'govuk-input--width-4 govuk-input--error', name: 'year', value: old['enlistedDate-year'] }
+    ]
+}) }}
+
+{{ govukDateInput({
+    id: 'dischargedDate', namePrefix: 'dischargedDate', fieldset: { legend: { text: elementData.dischargedDateLabel } },
+    items: [
+        { classes: 'govuk-input--width-2 govuk-input--error', name: 'day', value: old['dischargedDate-day'] },
+        { classes: 'govuk-input--width-2 govuk-input--error', name: 'month', value: old['dischargedDate-month'] },
+        { classes: 'govuk-input--width-4 govuk-input--error', name: 'year', value: old['dischargedDate-year'] }
+    ]
+}) }}
+
+{{ govukInput({
+    label: { text: 'Which county did they serve in?' }, id: 'countyServed', name: 'countyServed',
+    value: old.countyServed, errorMessage: errors.countyServed, classes: ''
+}) }}
+
+{{ govukInput({
+    label: { text: 'Address when they joined' }, id: 'addressWhenJoined', name: 'addressWhenJoined',
+    autocomplete: 'street-address', value: old.addressWhenJoined, errorMessage: errors.addressWhenJoined, classes: ''
+}) }}
+
+{{ govukInput({
+    label: { text: 'Numbers of any Battalions and Companies' }, id: 'battalions', name: 'battalions',
+    value: old.battalions, errorMessage: errors.battalions}, classes: ''
+}) }}

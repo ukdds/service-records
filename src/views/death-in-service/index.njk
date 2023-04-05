@@ -1,0 +1,9 @@
+{% extends "../form.njk" %}
+
+{% block form %}
+    {{ govukRadios({
+        classes: "govuk-radios--inline", name: "diedInService", errorMessage: errors.diedInService,
+        fieldset: { legend: { text: "Did they die in service?", isPageHeading: true, classes: "govuk-fieldset__legend--l" } },
+        items: [ { value: "Yes", text: "Yes" }, { value: "No", text: "No" } ], value: old.diedInService
+    }) }}
+{% endblock %}

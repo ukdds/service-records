@@ -1,0 +1,9 @@
+{% extends "../form.njk" %}
+
+{% block form %}
+    <h1 class="govuk-heading-xl">Serviceperson Details</h1>
+    {{ govukInput({ label: { html: "Service number <span>(optional)</span>" }, id: "serviceNumber", name: "serviceNumber", value: old.serviceNumber }) }}
+    {{ govukInput({ label: { html: "Rank <span>(optional)</span>" }, id: "rank", name: "rank", value: old.rank }) }}
+
+    {% include "./_partials/" + old.service + ".njk" %}
+{% endblock %}

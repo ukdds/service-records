@@ -1,0 +1,29 @@
+
+{{ govukDateInput({
+    id: 'enlistedDate', namePrefix: 'enlistedDate',
+    fieldset: { legend: { html: 'Date they joined <span>(optional)</span>' } }, errorMessage: false,
+    items: [
+        { classes: 'govuk-input--width-2', name: 'day', value: old['enlistedDate-day'] },
+        { classes: 'govuk-input--width-2', name: 'month', value: old['enlistedDate-month'] },
+        { classes: 'govuk-input--width-4', name: 'year', value: old['enlistedDate-year'] }
+    ]
+}) }}
+
+{{ govukDateInput({
+    id: 'dischargedDate',  namePrefix: 'dischargedDate',
+    fieldset: { legend: { html: elementData.dischargedDateLabel + ' <span>(optional)</span>' } },
+    hint: { text: 'Approximate if you are unsure.' }, errorMessage: false,
+    items: [
+        { classes: 'govuk-input--width-2', name: 'day', value: old['dischargedDate-day'] },
+        { classes: 'govuk-input--width-2', name: 'month', value: old['dischargedDate-month'] },
+        { classes: 'govuk-input--width-4', name: 'year', value: old['dischargedDate-year'] }
+    ]
+}) }}
+
+{{ govukTextarea({
+    name: 'dischargedInformation',
+    id: 'dischargedInformation',
+    label: { html: 'Further information <span>(optional)</span>' },
+    hint: { text: 'For example Ranks, Grades, Regiments, National Insurance number.' }
+}) }}
+

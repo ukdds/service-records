@@ -1,0 +1,67 @@
+{% extends "form.njk" %}
+
+{% block form %}
+    {{ govukInput({
+        label: { text: 'First name' }, id: "firstName", name: "firstName",
+        errorMessage: errors.firstName, classes: "govuk-!-width-two-thirds",
+        autocomplete: "given-name", spellcheck: false, value: old.firstName
+    }) }}
+
+    {{ govukInput({
+        label: { html: 'Middle name(s) <span>(optional)</span>' }, id: "middleName", name: "middleName",
+        value: old.middleName, errorMessage: errors.middleName, classes: "govuk-!-width-two-thirds",
+        autocomplete: "middle-name", spellcheck: false, value: old.middleName
+    }) }}
+
+    {{ govukInput({
+        label: { text: 'Last name' }, id: "lastName", name: "lastName",
+        errorMessage: errors.lastName, classes: "govuk-!-width-two-thirds",
+        autocomplete: "family-name", spellcheck: false, value: old.lastName
+    }) }}
+
+    {{ govukInput({
+        label: { html: 'Place of birth <span>(optional)</span>' }, id: "placeOfBirth", name: "placeOfBirth",
+        errorMessage: errors.placeOfBirth, classes: "govuk-!-width-two-thirds",
+        errorMessage: errors.placeOfBirth, classes: "govuk-!-width-two-thirds",
+        spellcheck: false, value: old.placeOfBirth
+    }) }}
+
+    {% if serviceRecordNotHeld %}
+        {% set serviceRecordHtml %}
+            {% if session.service == 'navy' %} {% set archiveYear = 1890 %}
+            {% else %} {% set archiveYear = 1940 %} {% endif %}
+            No records are held where the serviceperson was born before {{ archiveYear }}.
+            Contact <a href="https://www.nationalarchives.gov.uk/">The National Archive</a>.
+        {% endset %}
+
+        {{ govukDetails({
+            summaryText: "Service record not held", html: serviceRecordHtml
+        }) }}
+    {% endif %}
+
+    {% set dateDayClasses = "govuk-input--width-2" %}
+    {%  if errors['dateOfBirth-day'] %}
+        {%  set dateDayClasses = "govuk-input--width-2 govuk-input--error" %}
+    {%  endif %}
+
+    {% set dateMonthClasses = "govuk-input--width-2" %}
+    {%  if errors['dateOfBirth-month'] %}
+        {%  set dateMonthClasses = "govuk-input--width-2 govuk-input--error" %}
+    {%  endif %}
+
+    {% set dateYearClasses = "govuk-input--width-4" %}
+    {%  if errors['dateOfBirth-year'] %}
+        {%  set dateYearClasses = "govuk-input--width-4 govuk-input--error" %}
+    {%  endif %}
+
+    {{ govukDateInput({
+        id: "dateOfBirth", namePrefix: "dateOfBirth", errorMessage: errors['dateOfBirth-year'],
+        fieldset: { legend: { text: 'Date of birth' } },
+        hint: { text: "For example, 31 3 1910. A year of birth is required, the day and month are optional." },
+        items: [
+            { classes: dateDayClasses, name: "day", value: old['dateOfBirth-day'] },
+            { classes: dateMonthClasses, name: "month", value: old['dateOfBirth-month'] },
+            { classes: dateYearClasses, name: "year", value: old['dateOfBirth-year'] }
+        ]
+    }) }}
+{% endblock %}

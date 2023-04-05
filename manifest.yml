@@ -1,0 +1,10 @@
+applications:
+  - name: adpmr-dev
+    command: node dist/main.js
+    instances: 1
+    memory: 512M
+    routes:
+      - route: dev-adpmr.cloudapps.digital
+    health-check-type: process
+    buildpacks:
+      - https://github.com/cloudfoundry/nodejs-buildpack

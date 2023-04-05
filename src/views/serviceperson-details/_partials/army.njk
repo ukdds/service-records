@@ -1,0 +1,91 @@
+{% if serviceRecordNotHeld %}
+    {% set serviceRecordHtml %}
+        No records held where death is before 1 Jan 1964.
+        Contact <a href='https://www.nationalarchives.gov.uk/'>The National Archive</a>.
+    {% endset %}
+
+    {{ govukDetails({ summaryText: 'Service record not held', html: serviceRecordHtml }) }}
+{% endif %}
+
+{{ govukDateInput({
+    id: "dischargedDate", namePrefix: "dischargedDate",
+    fieldset: { legend: { text: elementData.dischargedDateLabel } },
+    hint: { text: "Approximate if you are unsure." },
+    items: [
+        { classes: "govuk-input--width-2", name: "day", value: old['dischargedDate-day'] },
+        { classes: "govuk-input--width-2", name: "month", value: old['dischargedDate-month'] },
+        { classes: "govuk-input--width-4", name: "year", value: old['dischargedDate-year'] }
+    ]
+}) }}
+
+{{ govukInput({
+    label: { html: "Regt/Corps <span>(optional)</span>" }, hint: elementData.regimentHint, errorMessage: error.regiment,
+    id: "regiment", name: "regiment", value: old.regiment
+}) }}
+
+{% if elementData.showExtendedFields %}
+    {{ govukRadios({
+        name: "reasonForLeaving",
+        fieldset: { legend: { text: "Why did they leave the Army?" } },
+        items: elementData.servicepersonReasonForLeaving,
+        errorMessage: errors.reasonForLeaving,  value: old.reasonForLeaving
+    }) }}
+
+    {% set taHtml %}
+        {{ govukInput({
+            id: "taNumber", name: "taNumber", spellcheck: false,
+            classes: "govuk-!-width-one-third", label: { text: "Number" },
+            value: old.taNumber
+        }) }}
+        {{ govukInput({
+            id: "taRegiment", name: "taRegiment", spellcheck: false,
+            classes: "govuk-!-width-one-third", label: { text: "Regt/Corps" },
+            value: old.taRegiment
+        }) }}
+        {{ govukInput({
+            id: "taDates",  name: "taDates", spellcheck: false,
+            classes: "govuk-!-width-one-third", label: { text: "Dates" },
+            value: old.taDates
+        }) }}
+    {% endset %}
+
+    {% set aerHtml %}
+        {{ govukInput({
+            id: "aerNumber", name: "aerNumber", spellcheck: false,
+            classes: "govuk-!-width-one-third", label: { text: "Number" },
+            value: old.aerNumber
+        }) }}
+        {{ govukInput({
+            id: "aerRegiment", name: "aerRegiment", spellcheck: false,
+            classes: "govuk-!-width-one-third", label: { text: "Regt/Corps" },
+            value: old.aerRegiment
+        }) }}
+        {{ govukInput({
+            id: "aerDates",  name: "aerDates", spellcheck: false,
+            classes: "govuk-!-width-one-third", label: { text: "Dates" },
+            value: old.aerDates
+        }) }}
+    {% endset %}
+
+    {{ govukCheckboxes({
+        name: "additionalService", values: old.additionalService,
+        fieldset: { legend: { text: "Did they serve with either of the following?" } },
+        items: [
+            { value: "ta", text: "Territorial Army (TA)", conditional: { html: taHtml } },
+            { value: "aer", text: "Army Emergency Reserve (AER)", conditional: { html: aerHtml } }
+        ]
+    }) }}
+
+    {{ govukRadios({
+        name: "disabilityPension", value: old.disabilityPension,
+        fieldset: { legend: { text: "Has a Disability Pension been applied for?" } },
+        items: [ { value: "Yes", text: "Yes" }, { value: "No", text: "No" }, { value: "Unknown", text: "Unknown" } ]
+    }) }}
+
+    {{ govukCharacterCount({
+        name: "additionalInformation", id: "additionalInformation",
+        value: old.additionalInformation, maxlength: 200, label: { text: "Further information" },
+        hint: { text: "For example Ranks, Grades, Regiments, National Insurance number." }
+    }) }}
+
+{% endif %}
